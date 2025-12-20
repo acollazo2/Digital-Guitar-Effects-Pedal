@@ -1,5 +1,6 @@
 tiledlayout(2,2,'TileSpacing','loose','Padding','compact'); nexttile;
 
+
 fileName = 'LP_FIR_coeff.txt';
 
 Fs = 48000;
@@ -22,6 +23,7 @@ plot(f, 20*log10(abs(H))); xlim([0 Fs/2]); title('H(f)'); ylabel('Gain dB'); nex
 plot(f, angle(H)); xlim([0 Fs/2]); title('H(f) phase'); nexttile;
 
 % Apply and plot filtered signal frequency response
+clear FIR_filter_apply
 y = FIR_filter_apply(x, h, bufferSize);
 Y = fft(y);
 plot(f, abs(Y)); xlim([0 Fs/2]); title('Y(f)');
@@ -33,3 +35,4 @@ for i = 1:N
     fprintf('y(%d) = %f, y_l(%d) = %f \n', i, y(i), i, y_l(i));
   end
 end
+

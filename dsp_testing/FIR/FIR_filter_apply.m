@@ -38,15 +38,14 @@ function y = overlap_add(x, L, h, M)
     overlapped_symbols = zeros(1, M-1);
   end
   
-  % Perform convolution (could be swapped with FFT version later)
-  y_l = conv_direct(x, L, h, M); % length L+M-1
+  % Perform convolution to produce first L terms
+  y = conv_direct_general(x, L, h, M, 0, L-1); % length L
 
   % Add saved samples to beginning of y_l
-  % and save last M-1 samples of y_l
   for i = 0:M-1 -1
-    y_l(i +1) = y_l(i +1) + overlapped_symbols(i +1);
-    overlapped_symbols(i +1) = y_l(L+i +1);
+    y(i +1) = y(i +1) + overlapped_symbols(i +1);
   end
-  
-  y = y_l(1:L);
+
+  % Compute remaining M-1 terms which are saved for next block
+  overlapped_symbols = conv_direct_general(x, L, h, M, L, L+M-1-1);
 end
