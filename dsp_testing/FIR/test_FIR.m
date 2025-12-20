@@ -22,10 +22,11 @@ plot(f, 20*log10(abs(H))); xlim([0 Fs/2]); title('H(f)'); ylabel('Gain dB'); nex
 plot(f, angle(H)); xlim([0 Fs/2]); title('H(f) phase'); nexttile;
 
 % Apply and plot filtered signal frequency response
-y = overlap_add(x, h, bufferSize);
+y = FIR_filter_apply(x, h, bufferSize);
 Y = fft(y);
 plot(f, abs(Y)); xlim([0 Fs/2]); title('Y(f)');
 
+% Test that custom convolution function produces correct output
 y_l = conv(x,h);
 for i = 1:N
   if (abs(y(i) - y_l(i)) > 0.001)
