@@ -39,7 +39,7 @@ function y = overlap_add(x, L, h, M)
   end
   
   % Perform convolution to produce first L terms
-  y = conv_direct_general(x, L, h, M, 0, L-1); % length L
+  y = conv_direct_range(x, L, h, M, 0, L-1); % length L
 
   % Add saved samples to beginning of y_l
   for i = 0:M-1 -1
@@ -47,5 +47,5 @@ function y = overlap_add(x, L, h, M)
   end
 
   % Compute remaining M-1 terms which are saved for next block
-  overlapped_symbols = conv_direct_general(x, L, h, M, L, L+M-1-1);
+  overlapped_symbols = conv_direct_range(x, L, h, M, L, L+M-1-1);
 end

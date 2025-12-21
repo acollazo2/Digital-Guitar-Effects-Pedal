@@ -8,7 +8,7 @@
 % start: mathematical index to start computing from
 % stop: mathematical index to stop computing at
 % y: output convolution, size stop-start+1
-function y = conv_direct_general(x, L, h, M, start, stop)
+function y = conv_direct_range(x, L, h, M, start, stop)
   y = zeros(1, stop-start+1);
   if (start >= L+M-1 || stop >= L+M-1 || start < 0 || stop < 0 || stop < start)
     return;
