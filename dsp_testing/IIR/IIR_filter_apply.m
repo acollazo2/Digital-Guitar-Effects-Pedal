@@ -66,15 +66,15 @@ function y = IIR_filter_apply_block(x, L, b, a)
   end
 
   % Update past_x
-  j = length(x)-1;
+  j = L-1;
   for i = 0:length(past_x)-1
-    past_x(i +1) = x(j-i +1);
+    past_x(i +1) = x(j +1);
     j = j-1;
   end
   % Update past_y
-  j = length(y)-1;
+  j = L-1;
   for i = 0:length(past_y)-1
-    past_y(i +1) = y(j-i +1);
+    past_y(i +1) = y(j +1);
     j = j-1;
   end
   
