@@ -1,5 +1,8 @@
-tiledlayout(2,2,'TileSpacing','loose','Padding','compact'); nexttile;
+clear; clc;
+addpath(fullfile(pwd, '..'));
 
+
+tiledlayout(2,2,'TileSpacing','loose','Padding','compact'); nexttile;
 
 fileName = 'LP_FIR_coeff.txt';
 
@@ -30,9 +33,16 @@ plot(f, abs(Y)); xlim([0 Fs/2]); title('Y(f)');
 
 % Test that custom convolution function produces correct output
 y_l = conv(x,h);
+errors = 0;
 for i = 1:N
   if (abs(y(i) - y_l(i)) > 0.001)
     fprintf('y(%d) = %f, y_l(%d) = %f \n', i, y(i), i, y_l(i));
+    errors = errors + 1;
   end
+end
+if (errors)
+  fprintf("Test failed.\n");
+else
+  fprintf("Test passed.\n");
 end
 

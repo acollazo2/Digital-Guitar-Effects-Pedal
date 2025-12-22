@@ -1,5 +1,8 @@
 
 
+% Applies an arbitrary order IIR filter to a long input sequence
+%   by breaking the input into blocks and applying the filter to
+%   each block while taking into account edge effects.
 % x: long input sequence, length multiple of L
 % L: input chunk size
 % b: coefficients for numerator of transfer function [b0, b1*z^-1, b2*bz^-2,...]
@@ -7,7 +10,6 @@
 function y = IIR_filter_apply(x, L, b, a)
   numOfChunks = ceil(length(x)/L);
   y = zeros(1, numOfChunks*L); % Create space for output
-
 
   % Go through every chunk in x
   % This is what would be done to each buffer in a real-time system
@@ -18,10 +20,7 @@ function y = IIR_filter_apply(x, L, b, a)
     x_i = x(lowerbound +1 : upperbound +1);
     y(lowerbound +1:upperbound +1) = IIR_filter_apply_block(x_i, L, b, a);
   end
-
 end
-
-
 
 
 % Applies IIR filter to input block.
@@ -32,7 +31,8 @@ end
 % a: coefficients for denominator of transfer function [a0, a1*z^-1, a2*z^-2,...]
 function y = IIR_filter_apply_block(x, L, b, a)
   
-  % Buffers to hold past inputs and outputs
+  % Buffers to hold past inputs and outputs.
+  % These would be part of an IIR struct in the final C implementation.
   persistent past_x; % [x(-1), x(-2), ...]
   if (isempty(past_x))
     past_x = zeros(1, length(b) - 1);
