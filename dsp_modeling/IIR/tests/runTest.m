@@ -13,6 +13,7 @@
 function runTest(b, a, x, N, bufferSize, Fs, title_of_test)
   figure('Name', title_of_test);
   tiledlayout(3,2,'TileSpacing','loose','Padding','compact'); nexttile;
+  iir = IIR_struct(b, a);
 
   % Data range
   n = 0:N-1;
@@ -20,8 +21,7 @@ function runTest(b, a, x, N, bufferSize, Fs, title_of_test)
   
   % Plot transfer function calculated with custom implementation
   impulse = [1, zeros(1, N-1)];
-  clear IIR_filter_apply
-  h = IIR_filter_apply(impulse, bufferSize, b, a);
+  h = IIR_filter_apply(impulse, bufferSize, iir);
   plot(f, 20*log10(abs(fft(h)))); xlim([0 Fs/2]); title('H(f) Magnitude'); ylabel('dB'); xlabel('freq (Hz)'); nexttile;
   plot(f, angle(fft(h))); xlim([0 Fs/2]); title('H(f) Phase'); xlabel('freq (Hz)'); nexttile;
 
@@ -34,8 +34,7 @@ function runTest(b, a, x, N, bufferSize, Fs, title_of_test)
   plot(f, abs(fft(x))); xlim([0, Fs/2]); title('X(f) Magnitude'); xlabel('freq (Hz)'); nexttile;
 
   % Apply filter using custom implementation and plot frequency response
-  clear IIR_filter_apply
-  y = IIR_filter_apply(x, bufferSize, b, a);
+  y = IIR_filter_apply(x, bufferSize, iir);
   plot(f, abs(fft(y))); xlim([0 Fs/2]); title('Y(f) Magnitude'); xlabel('freq (Hz)');
 
   % Verify filtered output using matlab's implementation

@@ -27,4 +27,3 @@ runTest(b, a, x, N, bufferSize, Fs, 'no_feedback_filter');
 [~, a] = butter(3, 10000/(Fs/2));
 b = 1;
 runTest(b, a, x, N, bufferSize, Fs, 'no_feedforward_filter');
-
