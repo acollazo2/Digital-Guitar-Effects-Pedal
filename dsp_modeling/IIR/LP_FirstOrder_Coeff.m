@@ -1,6 +1,6 @@
 
 
-% IIR coefficents for a first order low pass filter.
+% IIR coefficents for a first order butterworth low pass filter.
 % cutoff_freq: cut off frequency of low pass filter.
 % Fs: sampling frequency of system.
 % b: coefficients for numerator of transfer function [b0, b1*z^-1, b2*bz^-2,...]
