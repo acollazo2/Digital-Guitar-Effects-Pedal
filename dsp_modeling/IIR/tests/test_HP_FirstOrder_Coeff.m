@@ -16,7 +16,7 @@ plot((w*Fs)/(2*pi), 20*log10(abs(H))); title('H(f) Magnitude'); ylabel('dB'); xl
 plot((w*Fs)/(2*pi), angle(H)); title('H(f) Phase'); xlabel('freq (Hz)'); nexttile;
 
 % Matlab's coefficient generator
-[b_ref, a_ref] = butter(1, 10000/(Fs/2), "high");
+[b_ref, a_ref] = butter(1, Fc/(Fs/2), "high");
 [H_ref,w] = freqz(b_ref, a_ref, N);
 plot((w*Fs)/(2*pi), 20*log10(abs(H_ref))); title('H(f) Magnitude (Reference)'); ylabel('dB'); xlabel('freq (Hz)'); nexttile;
 plot((w*Fs)/(2*pi), angle(H_ref)); title('H(f) Phase (Reference)'); xlabel('freq (Hz)');

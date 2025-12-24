@@ -10,13 +10,13 @@ N = 10000;
 
 
 % Custom coefficient generator
-[b,a] = LP_FirstOrder_Coeff(Fc, Fs);
+[b,a] = HP_SecondOrder_Coeff(Fc, Fs);
 [H,w] = freqz(b, a, N);
 plot((w*Fs)/(2*pi), 20*log10(abs(H))); title('H(f) Magnitude'); ylabel('dB'); xlabel('freq (Hz)'); nexttile;
 plot((w*Fs)/(2*pi), angle(H)); title('H(f) Phase'); xlabel('freq (Hz)'); nexttile;
 
 % Matlab's coefficient generator
-[b_ref, a_ref] = butter(1, Fc/(Fs/2));
+[b_ref, a_ref] = butter(2, Fc/(Fs/2), "high");
 [H_ref,w] = freqz(b_ref, a_ref, N);
 plot((w*Fs)/(2*pi), 20*log10(abs(H_ref))); title('H(f) Magnitude (Reference)'); ylabel('dB'); xlabel('freq (Hz)'); nexttile;
 plot((w*Fs)/(2*pi), angle(H_ref)); title('H(f) Phase (Reference)'); xlabel('freq (Hz)');
