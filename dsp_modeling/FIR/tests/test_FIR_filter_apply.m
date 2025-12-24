@@ -26,7 +26,7 @@ plot(f, abs(fft(x))); xlim([0 Fs/2]); title('X(f)'); nexttile;
 
 % Apply and plot filtered signal frequency response
 fir = FIR_struct(h);
-y = FIR_filter_apply(x, bufferSize, fir);
+y = FIR_filter_apply_long(x, bufferSize, fir);
 plot(f, abs(fft(y))); xlim([0 Fs/2]); title('Y(f)');
 
 % Test that custom convolution function produces correct output
@@ -43,4 +43,3 @@ if (errors)
 else
   fprintf("Test passed.\n");
 end
-
